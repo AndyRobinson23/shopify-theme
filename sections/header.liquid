@@ -101,12 +101,14 @@
         {% assign unlocked_txt = section.settings.unlocked_free_shipping_text | escape %}
         {% assign threshold = section.settings.free_shipping_threshold | times: 100 %}
         {% assign value_left = threshold | minus:cart.total_price %}
+        {% assign value_left_money = value_left | money %}
 
         <div class="announcement-banner">
             {% if value_left <= 0 %}
-                
+               <p class="announcement-banner__text">{{ unlocked_txt }}</p>
+            {% else %}
+                <p class="announcement-banner__text">{{ promote_txt | replace: '[value]', value_left_money }}</p>
             {% endif %}
-            <p class="announcement-banner__text">{{ section.settings.promote_free_shipping_text }}</p>
         </div>
     {% endif %}
 </header>
