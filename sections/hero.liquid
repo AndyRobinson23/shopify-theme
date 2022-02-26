@@ -1,0 +1,54 @@
+<div class="hero">
+    <h3 class="hero__heading">{{ section.settings.heading_text }}</h3>
+    <p class="hero__subheading">{{ section.settings.subheading_text }}</p>
+</div>
+
+{% schema %}
+{
+    "name" : "Hero",
+    "settings" : [
+        {
+            "type" : "image_picker",
+            "id" : "image",
+            "label" : "Background image"
+        },
+        {
+            "type" : "text",
+            "id" : "heading_text",
+            "label" : "Heading text on image"
+        },
+        {
+            "type" : "text",
+            "id" : "subheading_text",
+            "label" : "Subheading text on image"
+        },
+        {
+            "type" : "color", 
+            "id" : "text_color", 
+            "label" : "Color of text on image"
+        }
+    ]
+}
+{% endschema %}
+
+{% style %}
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 80vh;
+    background-image: url('{{ section.settings.image | img_url: 'master' }}');
+    color: {{ section.settings.text_color }};
+}
+
+.hero__heading {
+    font-size: 4rem;
+    font-weight: 500;
+}
+
+.hero__subheading {
+    font-size: 2rem;
+}
+{% endstyle %}

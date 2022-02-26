@@ -1,0 +1,53 @@
+<section class="section__featured--collection">
+    <h3 class="section__featured--collection-heading">{{ section.settings.heading }}</h3>
+    
+    <div class="grid-container">
+        {% for product in collections.Trainers.products limit:4 %}
+            <div>
+                <a href="{{ product.url | within: collection }}">
+                    <img src="{{ product.featured_image.src | img_url: '300x' }}" alt="{{ product.featured_image.alt | escape }}">
+                </a>
+                <div class="collection__product--details">
+                    <a class="collection__product--title" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                    <span class="collection__product--price">{{ product.price | money }}</span>
+                    {% unless product.available %}<br><strong>sold out</strong>
+                    {% endunless %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name" : "featured-collection",
+    "settings" : [
+        {
+            "type" : "text", 
+            "id" : "heading",
+            "label" : "section_heading"
+        }
+    ]
+}
+{% endschema %}
+
+
+{% style %}
+.section__featured--collection {
+    padding: 5rem 3rem;
+}
+
+.section__featured--collection-heading {
+    font-size: 2.2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 170rem;
+    margin: 0 auto;
+}
+{% endstyle %}

@@ -1,0 +1,115 @@
+<div class="gallery">
+    {% for block in section.blocks %}
+        <a class="gallery__link" href="{{ block.settings.link }}">
+            <div class="gallery__image-wrap" style="background-image: url('{{ block.settings.image | img_url: '500x'}}');">
+                {% if block.settings.text != blank %}
+                    <p class="gallery__image-text">
+                        {{ block.settings.text }}
+                    </p>
+                {% endif %}
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+{% schema %}
+
+{
+    "name": "Gallery",
+    "settings": [
+        {
+            "type": "select",
+            "id": "per-row",
+            "label": "Images per row",
+            "options": [
+                {
+                    "value": "49.5%",
+                    "label": "2 per row"
+                }, {
+                    "value": "33.33%",
+                    "label": "3 per row"
+                }, {
+                    "value": "24.5%",
+                    "label": "4 per row"
+                }, {
+                    "value": "19.5%",
+                    "label": "5 per row"
+                }
+            ],
+            "default": "33.33%"
+        }, {
+            "type": "select",
+            "id": "height",
+            "label": "Image height",
+            "options": [
+                {
+                    "value": "300px",
+                    "label": "300px"
+                }, {
+                    "value": "400px",
+                    "label": "400px"
+                }, {
+                    "value": "500px",
+                    "label": "500px"
+                }
+            ],
+            "default": "500px"
+        }, {
+            "type": "color",
+            "id": "text_color",
+            "label": "Color of text on image"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image Block",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                }, {
+                    "type": "text",
+                    "id": "text",
+                    "label": "Text on image"
+                }, {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        }
+    ]
+}
+
+{% endschema %}
+
+{% style %}
+
+.gallery__image-wrap {
+    display: inline-block;
+    position: relative;
+    width: {{section.settings.per-row}};
+    height: {{section.settings.height}};
+    background-size: cover;
+}
+
+.gallery__image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
+    font-size: 2rem;
+    font-weight: 500;
+    transform: translate(-50%, -50%);
+}
+
+.gallery__link:link,
+.gallery__link:visited {
+    font-size: 1rem;
+    text-decoration: none;
+    color: {{section.settings.text_color}};
+}
+
+{% endstyle %}

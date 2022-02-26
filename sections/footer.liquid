@@ -1,0 +1,73 @@
+<footer>
+    <div class="footer__grid-col">
+        <h3 class="footer__col-heading">Sign up to our newsletter</h3>
+        <form>
+            <input class="footer__newsletter-field" name="newsletter" placeholder="Email" type="text">
+        </form>
+        <p class="footer__social-heading">Social</p>
+        <ul class="footer__social-links">
+            <li>
+                <a class="footer__social-link" href="#">
+                    <ion-icon class="footer__social-icon" name="logo-facebook"></ion-icon>
+                </a>
+            </li>
+            <li>
+                <a class="footer__social-link" href="#">
+                    <ion-icon class="footer__social-icon" name="logo-instagram"></ion-icon>
+                </a>
+            </li>
+            <li>
+                <a class="footer__social-link" href="#">
+                    <ion-icon class="footer__social-icon" name="logo-youtube"></ion-icon>
+                </a>
+            </li>
+            <li>
+                <a class="footer__social-link" href="#">
+                    <ion-icon class="footer__social-icon" name="logo-pinterest"></ion-icon>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    {% for block in section.blocks %}
+        {% if block.type == "link_list" %}
+            <div class="footer__grid-col">
+                <h3 class="footer__col-heading">{{ block.settings.title }}</h3>
+                <ul class="footer__links">
+                    {% for link in linklists[block.settings.menu].links %}
+                        <li>
+                            <a class="footer__link" href="{{ link.url }}">{{ link.title | escape }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+</footer>
+
+{% schema %}
+{
+    "name" : "Footer",
+    "max_blocks" : 3,
+    "blocks" : [
+        {
+            "type" : "link_list",
+            "name" : "navigation",
+            "settings" : [
+                {
+                    "type" : "text",
+                    "id" : "title",
+                    "label" : "Title",
+                    "default" : "Quick Links"
+                }, 
+                {
+                    "type" : "link_list",
+                    "id" : "menu",
+                    "label" : "Menu"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}

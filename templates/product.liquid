@@ -1,0 +1,71 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+<div class="product__grid-container">
+    <div class="product__image-gallery">
+        <div class="product__variant-images">
+            {% for image in product.images %}
+                <a href="{{ image.src | img_url: 'large' }}">
+                    <img src="{{ image.src | img_url: '150x' }}" alt="{{ image.alt | escape }}">
+                </a>
+            {% endfor %}
+        </div>
+        <div class="product__featured-img">
+            <img src="{{ featured_image | img_url: 'large'}}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg"/>
+        </div>
+    </div>
+    <div class="product__details">
+        <h1 class="product__title">{{ product.title }}</h1>
+        <p class="product__price">{{ current_variant.price | money }}</p>
+        <form action="/cart/add" enctype="multipart/form-data" id="AddToCartForm" method="post">
+            <select class="product__variant-selector" id="productSelect" name="id">
+                {% for variant in product.variants %}
+                    {% if variant.available %}
+                        <option value="{{ variant.id }}">
+                            {{ variant.title }}
+                            -
+                            {{ variant.price | money_with_currency }}
+                        </option>
+                    {% else %}
+                        <option disabled="disabled">
+                            {{ variant.title }}
+                            - sold out
+                        </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <div class="product__qty">
+                <label class="product__qty-selector--label" for="Quantity">Quantity:</label>
+                <input class="product__qty-selector--input" id="Quantity" min="1" name="quantity" type="number" value="1">
+            </div>
+            <div class="product__btns">
+                <button class="btn btn__full btn__pdp margin-bottom-md" id="AddToCart" name="add" type="submit">Add to cart</button>
+                <button class="btn btn__empty btn__pdp margin-bottom-md">Check store stock</button>
+            </div>
+        </form>
+
+        <div class="accordion__container">
+            <div class="accordion__section">
+                <div class="accordion__collapsed">
+                    <h3 class="accordion__heading">Product Details</h3>
+                    <ion-icon class="accordion__toggle" name="chevron-down-outline"></ion-icon>
+                </div>
+                <div class="accordion__description">{{ product.description }}</div>
+            </div>
+            <div class="accordion__section">
+                <div class="accordion__collapsed">
+                    <h3 class="accordion__heading">Fabric and Care</h3>
+                    <ion-icon class="accordion__toggle" name="chevron-down-outline"></ion-icon>
+                </div>
+                <p class="accordion__description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit magnam odit itaque rem reiciendis similique.</p>
+            </div>
+            <div class="accordion__section">
+                <div class="accordion__collapsed">
+                    <h3 class="accordion__heading">Product Details</h3>
+                    <ion-icon class="accordion__toggle" name="chevron-down-outline"></ion-icon>
+                </div>
+                <p class="accordion__description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis natus ipsam omnis voluptatibus, voluptatem, voluptate dicta est fugiat molestias libero laudantium distinctio quos eum perspiciatis!</p>
+            </div>
+        </div>
+    </div>
+</div>

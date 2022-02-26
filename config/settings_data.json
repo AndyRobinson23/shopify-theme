@@ -1,0 +1,121 @@
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "show_featured1": true,
+          "product": "awesome-sneakers",
+          "show_featured2": true,
+          "product2": "cool-kicks",
+          "show_announcement": true,
+          "announcement_text": "Free UK Shipping",
+          "announcement_background_color": "#818181",
+          "announcement_text_color": "#ffffff"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "5394c9da-d02f-4a05-81c1-a1dd582ce1fb": {
+            "type": "link_list",
+            "settings": {
+              "title": "Quick Links",
+              "menu": "main-menu"
+            }
+          },
+          "8ef96e7a-06e5-4e83-878f-0cfeb8f442ff": {
+            "type": "link_list",
+            "settings": {
+              "title": "Shipping & Returns",
+              "menu": "main-menu"
+            }
+          },
+          "7fca9bdb-9d53-477b-8f21-ead06f9ba30b": {
+            "type": "link_list",
+            "settings": {
+              "title": "Legal",
+              "menu": "main-menu"
+            }
+          }
+        },
+        "block_order": [
+          "5394c9da-d02f-4a05-81c1-a1dd582ce1fb",
+          "8ef96e7a-06e5-4e83-878f-0cfeb8f442ff",
+          "7fca9bdb-9d53-477b-8f21-ead06f9ba30b"
+        ],
+        "settings": {}
+      },
+      "gallery": {
+        "type": "gallery",
+        "blocks": {
+          "98110ce7-62d2-4497-95db-c0451b730445": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/woman-holding-flower.jpg",
+              "text": "About Us",
+              "link": "shopify:\/\/pages\/about-us"
+            }
+          },
+          "841f8c53-6fe9-4b6f-a068-8b1e5178f4c7": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/blue-green-open-neon.jpg",
+              "text": "Shops",
+              "link": ""
+            }
+          },
+          "71e0c2a2-6315-4c20-8b13-50524c448f53": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/a-close-up-of-black-microphone.jpg",
+              "text": "Podcast",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "98110ce7-62d2-4497-95db-c0451b730445",
+          "841f8c53-6fe9-4b6f-a068-8b1e5178f4c7",
+          "71e0c2a2-6315-4c20-8b13-50524c448f53"
+        ],
+        "settings": {
+          "per-row": "33%",
+          "height": "500px",
+          "text_color": "#ffffff"
+        }
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/Yeezy3.jpg",
+          "heading_text": "Shoes",
+          "subheading_text": "A place where you can buy shoes if you need shoes",
+          "text_color": "#ffffff"
+        }
+      },
+      "image-with-text": {
+        "type": "image-with-text",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/balenciaga-square.jpg",
+          "heading": "Heading",
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quasi vel aliquam eveniet laudantium a. Optio in esse nam aperiam numquam eius iste dolores, vel officiis, ratione excepturi beatae repellendus molestiae error possimus facere ducimus"
+        }
+      },
+      "featured-collection": {
+        "type": "featured-collection",
+        "settings": {
+          "heading": "Featured Shoes"
+        }
+      },
+      "drawer": {
+        "type": "drawer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {
+    "Default": {}
+  }
+}

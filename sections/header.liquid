@@ -1,0 +1,207 @@
+<header class="header">
+    <nav class="main-nav">
+        <ul class="main-nav-list">
+            {% for link in linklists.main-menu.links %}
+                <li class="main-nav-link">
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+                <div class="main-nav--dropdown">
+                    {% if link.title == 'Catalog' %}
+                        <div class="main-nav--catalog">
+                            <ul class="main-nav--dropdown-links">
+                                <span class="main-nav--dropdown-heading">By Collection</span>
+                                {% for link in linklists.main-menu.links %}
+                                    {% assign child_list_handle = link.title | handleize %}
+                                    {% if linklists[child_list_handle].links != blank %}
+                                        {% for childlink in linklists[child_list_handle].links %}
+                                            <a class="main-nav-child-link" href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+
+                            {% if section.settings.show_featured1 %}
+                                <div class="main-nav--featured-products">
+                                    <div class="main-nav--featured-product">
+                                        <span class="main-nav--dropdown-heading">Featured Products</span>
+                                        <a href="{{ section.settings.product.url | within: collection }}">
+                                            <img src="{{ section.settings.product.featured_image.src | img_url: '300x' }}" alt="{{ section.settings.product.featured_image.alt | escape }}">
+                                        </a>
+                                        <div class="collection__product--details">
+                                            <a class="collection__product--title" href="{{ section.settings.product.url | within: collection }}">{{ section.settings.product.title }}</a>
+                                            <span class="collection__product--price">{{ section.settings.product.price | money }}</span>
+                                            {% unless section.settings.product.available %}<br><strong>sold out</strong>
+                                            {% endunless %}
+                                        </div>
+                                    </div>
+
+                                    {% if section.settings.show_featured2 %}
+                                        <div class="main-nav--featured-product">
+                                            <span class="main-nav--dropdown-heading">&nbsp;</span>
+                                            <a href="{{ section.settings.product2.url | within: collection }}">
+                                                <img src="{{ section.settings.product2.featured_image.src | img_url: '300x' }}" alt="{{ section.settings.product2.featured_image.alt | escape }}">
+                                            </a>
+                                            <div class="collection__product--details">
+                                                <a class="collection__product--title" href="{{ section.settings.product2.url | within: collection }}">{{ section.settings.product2.title }}</a>
+                                                <span class="collection__product--price">{{ section.settings.product2.price | money }}</span>
+                                                {% unless section.settings.product2.available %}<br><strong>sold out</strong>
+                                                {% endunless %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    {% elsif link.title == 'About us' %}
+                        <div class="main-nav--about">
+                            <p class="main-nav--about-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias doloremque laudantium esse laboriosam, possimus, id ad perspiciatis voluptates, repudiandae neque quo est eos nulla necessitatibus similique unde et deleniti iure. Odit est voluptatem, incidunt quas quos voluptas! Veniam doloribus, tenetur tempore voluptatum laborum earum vitae provident accusamus a beatae maiores</p>
+                            <a class="main-nav--about-link" href="{{ link.url }}">Find out more</a>
+                        </div>
+
+                    {% elsif link.title == 'Blog' %}
+                        {% assign blog = blogs.Shoes %}
+                        <div class="main-nav--blog">
+                            {% for article in blog.articles %}
+                                <div class="main-nav--blog-article">
+                                    <img src="{{ article.image.src | img_url: 'medium' }}" alt="{{ article.image.alt }}">
+                                    <div class="main-nav--blog-article-details">
+                                        <h2 class="main-nav--blog-article-title">
+                                            <a class="main-nav--blog-article-title-link" href="{{ article.url }}">{{ article.title }}</a>
+                                        </h2>
+                                        <p class="main-nav--blog-article-excerpt">{{ article.excerpt }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="test">
+                            <a class="main-nav--blog-link" href="{{ blog.url }}">View all blog posts &rarr;</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </ul>
+
+        <div class="header-icons">
+            <a href="/account">
+                <ion-icon class="header-icon" name="person-outline"></ion-icon>
+            </a>
+            <a aria-controls="drawer-name" aria-expanded="false" data-drawer-trigger href="#">
+                <ion-icon class="header-icon" name="bag-outline"></ion-icon>
+            </a>
+        </div>
+    </nav>
+
+    {% if section.settings.show_announcement %}
+        <div class="announcement-banner">
+            <p class="announcement-banner__text">{{ section.settings.announcement_text }}</p>
+        </div>
+    {% elsif section.settings.is_free_shipping_bar %}
+        {% assign promote_txt = section.settings.promote_free_shipping_text | escape %}
+        {% assign unlocked_txt = section.settings.unlocked_free_shipping_text | escape %}
+        {% assign threshold = section.settings.free_shipping_threshold | times: 100 %}
+        {% assign value_left = threshold | minus:cart.total_price %}
+
+        <div class="announcement-banner">
+            {% if value_left <= 0 %}
+                
+            {% endif %}
+            <p class="announcement-banner__text">{{ section.settings.promote_free_shipping_text }}</p>
+        </div>
+    {% endif %}
+</header>
+
+
+{% schema %}
+{
+    "name" : "Header",
+    "settings" : [
+        {
+            "type" : "checkbox",
+            "id" : "show_featured1",
+            "label" : "Show first featured product"
+        },
+        {
+            "type" : "product",
+            "id" : "product",
+            "label" : "Select first featured product"
+        },
+        {
+            "type" : "checkbox",
+            "id" : "show_featured2",
+            "label" : "Show second featured product"
+        },
+        {
+            "type" : "product",
+            "id" : "product2",
+            "label" : "Select second featured product"
+        },
+        {
+            "type": "checkbox",
+            "id" : "show_announcement",
+            "label" : "Show announcement banner" 
+        },
+        {
+            "type" : "text",
+            "id" : "announcement_text",
+            "label" : "Announcement text"
+        },
+        {
+            "type" : "color",
+            "id" : "announcement_background_color",
+            "label" : "Background colour for announcement banner"
+        },
+        {
+            "type" : "color",
+            "id" : "announcement_text_color",
+            "label" : "Text colour for announcement banner"
+        },
+        {
+            "type" : "checkbox",
+            "id" : "is_free_shipping_bar",
+            "label" : "Enable free shipping bar",
+            "default" : false
+        },
+        {
+            "type" : "text",
+            "id" : "promote_free_shipping_text",
+            "label" : "Message to promote free shipping"
+        },
+        {
+            "type" : "text",
+            "id" : "unlocked_free_shipping_text",
+            "label" : "Message for unlocked free shipping"
+        },
+        {
+            "type" : "range", 
+            "id" : "free_shipping_threshold",
+            "label" : "Threshold for free shipping",
+            "min" : 0,
+            "max" : 200,
+            "step" : 5,
+            "unit" : "£",
+            "default" : 50
+        }
+    ]
+}
+{% endschema %}
+
+{% style %}
+
+/* ANNOUNCEMENT BANNER */
+.announcement-banner {
+    height: 3.5rem;
+    width: 100%;
+    color: {{ section.settings.announcement_text_color }};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: {{section.settings.announcement_background_color}};
+}
+
+.announcement-banner__text {
+    font-family: 'Montserrat';
+    font-size: 1.4rem;
+}
+
+{% endstyle %}

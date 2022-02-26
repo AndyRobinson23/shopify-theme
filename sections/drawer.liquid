@@ -1,0 +1,57 @@
+<section class="drawer" data-drawer-target id="drawer-name">
+    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+    <div class="drawer__wrapper">
+        <div class="drawer__header">
+            <div class="drawer__title">
+                Shopping cart
+            </div>
+            <button aria-label="Close Drawer" class="drawer__close" data-drawer-close></button>
+        </div>
+        <div class="drawer__content">
+            <div class="drawer_cart--items" id="drawer_cart--items">
+                <img alt="" src=""/>
+            </div>
+            <div id="drawer_cart--bottom">
+                <h4 class="drawer_total_amount">Total amount:
+                    <span id="drawer_total_amount">{{ cart.total_price | money }}</span>
+                </h4>
+                <a class="btn btn__full btn__ajax" href="/checkout" id="drawer_checkout_btn">Checkout</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    fetch("/cart.js").then(res => res.json()).then(data => {
+
+        if (data.items.length > 0) {
+            data.items.forEach((product, index) => {
+                document.getElementById("drawer_cart--items").innerHTML += `
+                <div class="drawer_cart--item">
+                    <img src="${
+                    product.featured_image.url
+                }" alt="${
+                    product.featured_image.alt
+                }" class="drawer_img" />
+                    <div class="drawer_cart--item-details">
+                        <h5 class="drawer_cart--item-title">${
+                    product.title
+                }</h5>
+                        <p>${
+                    product.quantity
+                } x ${
+                    product.line_price
+                }</p>
+                    </div>
+                </div>
+                `
+            });
+        } else {
+            document.getElementById("drawer_cart--items").innerHTML = "<p>Cart is empty</p>";
+            document
+                .getElementById("drawer_checkout_btn")
+                .style
+                .display = "none";
+        }
+    })
+</script>
